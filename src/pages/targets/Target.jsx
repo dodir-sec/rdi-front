@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Breadcrumbs from '../../components/Breadcrumbs';
 
 export default function Target() {
     const { domain } = useParams();
     const [activeTab, setActiveTab] = useState('overview'); // Default to 'overview'
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow">
+        <div className="">
+            <Breadcrumbs title={domain} />
             <h1 className="text-2xl font-bold">Details for {domain}</h1>
             <div className="my-4">
                 {/* Tab navigation */}

@@ -10,8 +10,8 @@ const DashboardLayout = ({ children }) => {
             <Header />
             <div className="flex flex-1">
                 <Navbar />
-                <main className="flex-1 p-4">
-                    <Outlet />  {/* This is where nested routes will render */}
+                <main className="flex-1 p-5 dark:bg-gray-700">
+                    <Outlet />  
                 </main>
             </div>
             <Footer />

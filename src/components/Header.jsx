@@ -1,16 +1,19 @@
 import React from 'react';
+import Logo from '../assets/images/logo.png';
+import Admin from '../assets/images/admin.png';
+import ThemeToggle from './ThemeToggle';
 
 function Header() {
     return (
-        <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
-            <div className="flex items-center">
-                {/* Logo: Replace `logo.svg` with your actual logo path */}
-                <img src="/path-to-your-logo.svg" alt="RDI Logo" className="h-8 mr-2" />
-                <span className="text-xl font-bold">RDI</span>
+        <header className=" p-4 flex justify-between items-center border-gray-200 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+            <div className="flex items-center gap-3">
+                <img src={Logo} className='w-16 rounded-full' alt="Logo" />
+                <span className="text-xl logo font-semibold">RDI</span>
             </div>
-            <div>
-                {/* Profile Image: Replace `profile.jpg` with your actual profile image path */}
-                <img src="/path-to-your-profile-image.jpg" alt="Profile" className="h-10 w-10 rounded-full" />
+            <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <span>Admin</span>
+                <img src={Admin} className='w-10 rounded-full' alt="Logo" />
             </div>
         </header>
     );
