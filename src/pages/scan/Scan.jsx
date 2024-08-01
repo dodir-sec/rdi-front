@@ -45,7 +45,7 @@ export default function Scan() {
     <div>
       <Breadcrumbs title={"Scanner"} />
 
-      <div className="p-4 text-s mx-auto bg-gray-100 border-gray-200 rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+      <div className="p-4 text-s mx-auto bg-gray-50 border-gray-200 shadow-md rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white">
         <div className="mb-5">
           <label for="domain" className="block mb-2  font-medium text-gray-900 dark:text-white">Domain</label>
           <div className="flex">
@@ -56,7 +56,7 @@ export default function Scan() {
               value={domain}
               onChange={handleDomainChange}
               type="text" id="domain"
-              className="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-100 focus:ring-blue-400 focus:ring-1 block flex-1 min-w-0 w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
+              className="rounded-none rounded-e-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-100 focus:ring-blue-400 focus:ring-1 block flex-1 min-w-0 w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
               placeholder="example.com"
             />
           </div>
@@ -66,14 +66,14 @@ export default function Scan() {
           <input
             value={companyName}
             onChange={handleCompanyNameChange}
-            type="text" id="companyName" className="bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Example' />
+            type="text" id="companyName" className="bg-white border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Example' />
         </div>
         <div className="mb-5">
-          <label for="program" className="block mb-2  font-medium text-gray-900 dark:text-white">Program</label>
+          <label for="program" className="block mb-2 font-medium text-gray-900 dark:text-white">Program</label>
           <input
             value={program}
             onChange={handleProgramChange}
-            type="text" id="program" className="bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Example' />
+            type="text" id="program" className="bg-white border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Example' />
         </div>
         <div className="mb-5">
           <label className="inline-flex items-center cursor-pointer">
@@ -90,7 +90,7 @@ export default function Scan() {
           <select id="severity"
             value={severity}
             onChange={handleSeverityChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            className="bg-white border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="high">High</option>
             <option value="medium">Medium</option>
             <option value="low">Low</option>

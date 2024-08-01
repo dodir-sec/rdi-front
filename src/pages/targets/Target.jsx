@@ -9,10 +9,8 @@ export default function Target() {
     return (
         <div className="">
             <Breadcrumbs title={domain} />
-            <h1 className="text-2xl font-bold">Details for {domain}</h1>
-            <div className="my-4">
-                {/* Tab navigation */}
-                <ul className="flex cursor-pointer">
+            <div className="mb-5 ">
+                <ul className="flex cursor-pointer dark:text-white">
                     <li
                         className={`mr-6 text-lg ${activeTab === 'overview' ? 'border-b-2 border-blue-500' : ''}`}
                         onClick={() => setActiveTab('overview')}
@@ -27,17 +25,15 @@ export default function Target() {
                     </li>
                 </ul>
             </div>
-            <div>
+            <div className='p-4 bg-gray-50 shadow-md rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white'>
                 {/* Conditional rendering based on the active tab */}
                 {activeTab === 'overview' && (
                     <div>
-                        <h2 className="text-xl font-semibold">Overview</h2>
                         <p>Some general information about {domain}, its security posture, recent activities, etc.</p>
                     </div>
                 )}
                 {activeTab === 'subdomains' && (
                     <div>
-                        <h2 className="text-xl font-semibold">Subdomains</h2>
                         <p>List and details of subdomains for {domain}. This could include more specific data or recent scans.</p>
                     </div>
                 )}
