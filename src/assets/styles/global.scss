@@ -1,0 +1,51 @@
+// Components
+// @import "./components/nav.scss";
+
+
+// Pages
+// @import "./pages/company.scss";
+
+// Fonts
+// @import 'remixicon/fonts/remixicon.css';
+
+@font-face {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;   
+    src: url('../fonts/PTSans-Regular.ttf') format('truetype');
+}
+
+// @font-face {
+//   font-family: "Raleway";
+//   src: url("../fonts/Raleway/static/Raleway-Regular.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+// body {
+//   background-color: #0E1116;
+//   color: #FDFCFF;
+//   font-family: Raleway, sans-serif;
+// }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+// * {
+//   scrollbar-width: thin;
+//   scrollbar-color: #ab70d9 #acb5c1;
+// }
+
+// /* Chrome, Edge, and Safari */
+// *::-webkit-scrollbar {
+//   width: 10px;
+// }
+
+// *::-webkit-scrollbar-track {
+//   background: #434951;
+// }
+
+// *::-webkit-scrollbar-thumb {
+//   background-color: #1397E0;
+//   border-radius: 14px;
+//   border: 1px none #000000;
+// }
