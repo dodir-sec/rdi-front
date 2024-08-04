@@ -1,10 +1,10 @@
 import React from 'react'
 import Breadcrumbs from '../../components/Breadcrumbs';
 
-export default function About() {
+export default function Users() {
     return (
         <div>
-            <Breadcrumbs title={"About"} />
+            <Breadcrumbs title={'Users'} />
         </div>
     )
 }

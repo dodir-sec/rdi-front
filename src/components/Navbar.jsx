@@ -19,6 +19,11 @@ function Navbar() {
             path: '/scan',
         },
         {
+            name: 'Users',
+            icon: 'ri-group-line',
+            path: '/users',
+        },
+        {
             name: 'About',
             icon: 'ri-information-line',
             path: '/about',

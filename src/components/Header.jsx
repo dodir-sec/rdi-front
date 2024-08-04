@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../assets/images/logo.png';
 import Admin from '../assets/images/admin.png';
 import ThemeToggle from './ThemeToggle';
+import { Link } from 'react-router-dom';
 
 function Header() {
     return (
@@ -13,7 +14,9 @@ function Header() {
             <div className="flex items-center gap-3">
                 <ThemeToggle />
                 <span>Admin</span>
-                <img src={Admin} className='w-10 rounded-full' alt="Logo" />
+                <Link to='/profile'>
+                    <img src={Admin} className='w-10 rounded-full' alt="Logo" />
+                </Link>
             </div>
         </header>
     );

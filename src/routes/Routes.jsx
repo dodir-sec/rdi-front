@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    Routes,
-    Route,
+  Routes,
+  Route,
 } from 'react-router-dom';
 
 import Login from '../pages/login/Login'
@@ -12,21 +12,27 @@ import Targets from '../pages/targets/Targets';
 import Target from '../pages/targets/Target';
 import Scan from '../pages/scan/Scan';
 import DashboardLayout from '../pages/dashboard/DashboardLayout';
+import Profile from '../pages/profile/Profile';
+import Users from '../pages/users/Users';
+import Subdomain from '../pages/subdomain/Subdomain';
 
 const AppRoutes = () => {
-    return (
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route element={<DashboardLayout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/targets" element={<Targets />} />
-          <Route path="/targets/:domain" element={<Target />} />
-          <Route path="/scan" element={<Scan />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    );
-  };
-  
-  export default AppRoutes;
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route element={<DashboardLayout />}>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/targets" element={<Targets />} />
+        <Route path="/targets/:domain" element={<Target />} />
+        <Route path="/targets/:domain/:subdomainId" element={<Subdomain />} />
+        <Route path="/scan" element={<Scan />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/users" element={<Users />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
+
+export default AppRoutes;

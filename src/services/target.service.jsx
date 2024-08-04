@@ -11,7 +11,7 @@ export const targetService = {
 
 async function query() {
     try {
-        return await httpService.get('targets')
+        return await httpService.get('domains')
     } catch (error) {
         console.log('Error in targetService.query:', error)
     }

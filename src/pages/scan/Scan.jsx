@@ -47,7 +47,7 @@ export default function Scan() {
 
       <div className="p-4 text-s mx-auto bg-gray-50 border-gray-200 shadow-md rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white">
         <div className="mb-5">
-          <label for="domain" className="block mb-2  font-medium text-gray-900 dark:text-white">Domain</label>
+          <label htmlFor="domain" className="block mb-2  font-medium text-gray-900 dark:text-white">Domain</label>
           <div className="flex">
             <span className="inline-flex items-center px-3  text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
               <span>https://</span>
@@ -62,18 +62,21 @@ export default function Scan() {
           </div>
         </div>
         <div className="mb-5">
-          <label for="companyName" className="block mb-2  font-medium text-gray-900 dark:text-white">Company Name</label>
+          <label htmlFor="companyName" className="block mb-2  font-medium text-gray-900 dark:text-white">Company Name</label>
           <input
             value={companyName}
             onChange={handleCompanyNameChange}
             type="text" id="companyName" className="bg-white border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Example' />
         </div>
         <div className="mb-5">
-          <label for="program" className="block mb-2 font-medium text-gray-900 dark:text-white">Program</label>
-          <input
+          <label htmlFor="program" className="block mb-2 font-medium text-gray-900 dark:text-white">Program</label>
+          <select id="program"
             value={program}
             onChange={handleProgramChange}
-            type="text" id="program" className="bg-white border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder='Example' />
+            className="bg-white border border-gray-300 text-gray-900 focus:outline-none rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="h1">Hacker One</option>
+            <option value="bugCrowd">Bug Crowd</option>
+          </select>
         </div>
         <div className="mb-5">
           <label className="inline-flex items-center cursor-pointer">
@@ -86,7 +89,7 @@ export default function Scan() {
           </label>
         </div>
         <div className="mb-5">
-          <label for="severity" className="block mb-2  font-medium text-gray-900 dark:text-white">Severity</label>
+          <label htmlFor="severity" className="block mb-2  font-medium text-gray-900 dark:text-white">Severity</label>
           <select id="severity"
             value={severity}
             onChange={handleSeverityChange}
@@ -98,11 +101,6 @@ export default function Scan() {
         </div>
         <div className="mb-5">
         </div>
-        {/* <div className="flex justify-between space-x-4">
-          <button onClick={() => handleScanTypeChange('active')} className={`px-4 py-2 rounded-md ${scanType === 'active' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>Active</button>
-          <button onClick={() => handleScanTypeChange('passive')} className={`px-4 py-2 rounded-md ${scanType === 'passive' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>Passive</button>
-          <button onClick={() => handleScanTypeChange('all')} className={`px-4 py-2 rounded-md ${scanType === 'all' ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>All</button>
-        </div> */}
         <div className="flex justify-end">
           <button onClick={handleScan} className="mt-5 bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded">
             Start Scan

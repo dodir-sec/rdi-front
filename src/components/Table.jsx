@@ -1,71 +1,70 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DropdownFilter from './DropdownFilter';
+import TableSearch from './TableSearch';
 
-const Table = () => {
-    const navigate = useNavigate();
+const Table = ({ data, handleRowClick }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortField, setSortField] = useState(null);
+    const [sortDirection, setSortDirection] = useState('asc');
 
-    // Updated mock data including new fields
-    const data = [
-        {
-            id: "1",
-            name: "RDI",
-            companyName: "RDI Tech",
-            lastScanned: "2023-07-29",
-            scanRounds: 15,
-            program: "h1",
-            isVdp: true,
-            severity: "High",
-            createdBy: "advir",
-            createdAt: "2023-07-01",
-            domain: "example.com",
-        },
-        {
-            id: "2",
-            name: "RDI Two",
-            companyName: "RDI Solutions",
-            lastScanned: "2023-07-28",
-            scanRounds: 10,
-            program: "bb",
-            isVdp: false,
-            severity: "Medium",
-            createdBy: "advir",
-            createdAt: "2023-06-25",
-            domain: "secondexample.com",
-        },
-    ];
-
-    const handleRowClick = (domain) => {
-        navigate(`/targets/${domain}`);
+    // Function to handle sorting
+    const handleSort = (field) => {
+        const direction = sortField === field && sortDirection === 'asc' ? 'desc' : 'asc';
+        setSortField(field);
+        setSortDirection(direction);
     };
 
+    const compareValues = (key, order = 'asc') => {
+        return function innerSort(a, b) {
+            const varA = (typeof a[key] === 'string') ? a[key].toUpperCase() : a[key];
+            const varB = (typeof b[key] === 'string') ? b[key].toUpperCase() : b[key];
+            let comparison = 0;
+            if (varA > varB) {
+                comparison = 1;
+            } else if (varA < varB) {
+                comparison = -1;
+            }
+            return (order === 'desc') ? (comparison * -1) : comparison;
+        };
+    };
+
+    // Memoized filtered and sorted data
+    const sortedFilteredData = useMemo(() => {
+        return data.filter(item => {
+            return Object.keys(item).some(key =>
+                item[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }).sort(compareValues(sortField, sortDirection));
+    }, [data, searchTerm, sortField, sortDirection]);
+
+    // Exclude 'id' from headers for display
+    const tableHeaders = data.length > 0 ? Object.keys(data[0]).filter(header => header !== 'id') : [];
+
     return (
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div>
+            <div className="flex mb-4 justify-between items-center">
+                <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                <DropdownFilter options={["Active", "Inactive", "Completed"]} applyFilters={() => { }} />
+            </div>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-900 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="py-3 px-6">Company Name</th>
-                        <th scope="col" className="py-3 px-6">Last Scanned</th>
-                        <th scope="col" className="py-3 px-6">Scan Rounds</th>
-                        <th scope="col" className="py-3 px-6">Program</th>
-                        <th scope="col" className="py-3 px-6">Is VDP</th>
-                        <th scope="col" className="py-3 px-6">Severity</th>
-                        <th scope="col" className="py-3 px-6">Created By</th>
-                        <th scope="col" className="py-3 px-6">Created At</th>
-                        <th scope="col" className="py-3 px-6">Domain</th>
+                        {tableHeaders.map(header => (
+                            <th key={header} className="py-3 px-6 cursor-pointer" onClick={() => handleSort(header)}>
+                                {header.replace(/([A-Z])/g, ' $1').trim()}
+                            </th>
+                        ))}
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item) => (
-                        <tr key={item?.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer" onClick={() => handleRowClick(item.domain)}>
-                            <td className="py-4 px-6">{item?.companyName}</td>
-                            <td className="py-4 px-6">{item?.lastScanned}</td>
-                            <td className="py-4 px-6">{item?.scanRounds}</td>
-                            <td className="py-4 px-6">{item?.program}</td>
-                            <td className="py-4 px-6">{item?.isVdp ? 'Yes' : 'No'}</td>
-                            <td className="py-4 px-6">{item?.severity}</td>
-                            <td className="py-4 px-6">{item?.createdBy}</td>
-                            <td className="py-4 px-6">{item?.createdAt}</td>
-                            <td className="py-4 px-6">{item?.domain}</td>
+                    {sortedFilteredData.map((item) => (
+                        <tr key={item.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                            onClick={() => handleRowClick(item.id)}
+                        >
+                            {tableHeaders.map(header => (
+                                <td key={header} className="py-4 px-6">{item[header]}</td>
+                            ))}
                         </tr>
                     ))}
                 </tbody>
