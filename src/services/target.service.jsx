@@ -19,7 +19,7 @@ async function query() {
 
 async function getById(id) {
     try {
-        return await httpService.get(`targets/${id}`)
+        return await httpService.get(`domains/${id}`)
     } catch (error) {
         console.log('Error in targetService.getById:', error
         )
@@ -36,7 +36,7 @@ async function scan(domain) {
 
 async function add(target) {
     try {
-        return await httpService.post('targets', target)
+        return await httpService.post('domains', target)
     } catch (error) {
         console.log('Error in targetService.add:', error)
     }
@@ -44,7 +44,7 @@ async function add(target) {
 
 async function update(target) {
     try {
-        return await httpService.put(`targets/${target._id}`, target)
+        return await httpService.put(`domains/${target._id}`, target)
     } catch (error) {
         console.log('Error in targetService.update:', error)
     }
@@ -52,7 +52,7 @@ async function update(target) {
 
 async function remove(id) {
     try {
-        return await httpService.delete(`targets/${id}`)
+        return await httpService.delete(`domains/${id}`)
     } catch (error) {
         console.log('Error in targetService.remove:', error)
     }

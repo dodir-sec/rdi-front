@@ -2,66 +2,40 @@ import React, { useState, useEffect } from 'react'
 import Table from '../../components/Table'
 import Breadcrumbs from '../../components/Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadTargets } from '../../store/actions/target.action';
 
 export default function Targets() {
   const navigate = useNavigate();
-  const filterOptions = ["Active", "Inactive", "Completed"];
+  const dispatch = useDispatch();
+  const targets = useSelector(state => state.targetModule.targets);
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    makeTableData();
-  }, []);
+    dispatch(loadTargets()); // Fetch targets when component mounts
+  }, [dispatch]);
 
-  const applyFilters = (filters) => {
-    console.log("Applied Filters:", filters);
-    // Here you can add logic to filter your table data based on selected filters
-  };
+  // Update table data whenever targets change
+  useEffect(() => {
+    if (targets && targets.length > 0) {
+      const formattedData = targets.map(target => ({
+        domain: target.domain,
+        id: target._id,
+        companyName: target.companyName,
+        program: target.program,
+        severity: target.severity,
+        isVdp: target.isVdp,
+        scanRounds: target.scanRounds,
+        lastScanned: target.lastScanned ? new Date(target.createdAt).toLocaleDateString() : 'N/A',
+        createdAt: target.createdAt ? new Date(target.createdAt).toLocaleDateString() : 'N/A', // Example of date formatting
+        createdBy: target.createdBy,
+      }));
+      setTableData(formattedData);
+    }
+  }, [targets]); // React to changes in 'targets'
 
-  const initialData = [
-    {
-      id: "1",
-      name: "RDI",
-      companyName: "RDI Tech",
-      lastScanned: "2023-07-29",
-      scanRounds: 15,
-      program: "h1",
-      isVdp: true,
-      severity: "High",
-      createdBy: "advir",
-      createdAt: "2023-07-01",
-      domain: "example.com",
-    },
-    {
-      id: "2",
-      name: "RDI Two",
-      companyName: "RDI Solutions",
-      lastScanned: "2023-07-28",
-      scanRounds: 10,
-      program: "bb",
-      isVdp: false,
-      severity: "Medium",
-      createdBy: "advir",
-      createdAt: "2023-06-25",
-      domain: "secondexample.com",
-    },
-  ];
-
-  const makeTableData = () => {
-    const data = initialData.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        companyName: item.companyName,
-        lastScanned: item.lastScanned,
-        scanRounds: item.scanRounds,
-        program: item.program,
-        severity: item.severity,
-        createdBy: item.createdBy,
-        createdAt: item.createdAt,
-        domain: item.domain,
-      };
-    });
-    setTableData(data);
+  if (!targets) {
+    return <div>Loading targets...</div>;
   }
 
   // Handle navigation to detailed page

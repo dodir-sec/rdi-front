@@ -33,10 +33,27 @@ const Table = ({ data, handleRowClick }) => {
     const sortedFilteredData = useMemo(() => {
         return data.filter(item => {
             return Object.keys(item).some(key =>
+                item[key] != null && // Check for null or undefined
                 item[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
             );
         }).sort(compareValues(sortField, sortDirection));
     }, [data, searchTerm, sortField, sortDirection]);
+
+    const handleCheckboxClick = (id, isChecked, event) => {
+        event.stopPropagation();  // Prevent the row click event
+        console.log(`Toggling checkbox for id ${id}: ${!isChecked}`);
+        // Here you would usually update the state or dispatch an action
+    };
+
+    const handleFavoriteToggle = (id, isFavorite, event) => {
+        event.stopPropagation();  // Prevent the row click event
+        console.log(`Toggling favorite status for id ${id}: ${!isFavorite}`);
+    };
+
+    const handleDomainClick = (url, event) => {
+        event.stopPropagation();  // Prevent the row click event
+        window.open(`https://${url}`, '_blank');
+    };
 
     // Exclude 'id' from headers for display
     const tableHeaders = data.length > 0 ? Object.keys(data[0]).filter(header => header !== 'id') : [];
@@ -45,13 +62,14 @@ const Table = ({ data, handleRowClick }) => {
         <div>
             <div className="flex mb-4 justify-between items-center">
                 <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                <DropdownFilter options={["Active", "Inactive", "Completed"]} applyFilters={() => { }} />
+                {/* <DropdownFilter options={["Active", "Inactive", "Completed"]} applyFilters={() => { }} /> */}
             </div>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-900 dark:text-gray-400">
                     <tr>
                         {tableHeaders.map(header => (
-                            <th key={header} className="py-3 px-6 cursor-pointer" onClick={() => handleSort(header)}>
+                            <th key={header} className="py-3 px-6 cursor-pointer"
+                                onClick={() => handleSort(header)}>
                                 {header.replace(/([A-Z])/g, ' $1').trim()}
                             </th>
                         ))}
@@ -63,7 +81,18 @@ const Table = ({ data, handleRowClick }) => {
                             onClick={() => handleRowClick(item.id)}
                         >
                             {tableHeaders.map(header => (
-                                <td key={header} className="py-4 px-6">{item[header]}</td>
+                                <td key={header} className="py-4 px-6">
+                                    {header === 'domain' ?
+                                        <a onClick={(e) => handleDomainClick(item[header], e)} href={`https://${item[header]}`} target="_blank" rel="noopener noreferrer">{item[header]}</a> :
+                                        header === 'isVdp' ?
+                                            item[header] ? 'VDP' : 'NOT VDP' :
+                                            header === 'checked' ?
+                                                <i onClick={(e) => handleCheckboxClick(item.id, item.checked, e)} className={item.checked ? "ri-checkbox-circle-line" : "ri-checkbox-blank-circle-line"}></i> :
+                                                header === 'favorite' ?
+                                                    <i onClick={(e) => handleFavoriteToggle(item.id, item.favorite, e)} className={item.favorite ? "ri-star-fill" : "ri-star-line"}></i> :
+                                                    item[header]
+                                    }
+                                </td>
                             ))}
                         </tr>
                     ))}
