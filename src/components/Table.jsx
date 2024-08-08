@@ -7,12 +7,17 @@ const Table = ({ data, handleRowClick }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortField, setSortField] = useState(null);
     const [sortDirection, setSortDirection] = useState('asc');
+    const [filterOptions, setFilterOptions] = useState([]);
 
     // Function to handle sorting
     const handleSort = (field) => {
         const direction = sortField === field && sortDirection === 'asc' ? 'desc' : 'asc';
         setSortField(field);
         setSortDirection(direction);
+    };
+
+    const applyFilters = (selectedFilters) => {
+        setFilterOptions(selectedFilters);
     };
 
     const compareValues = (key, order = 'asc') => {
@@ -30,14 +35,28 @@ const Table = ({ data, handleRowClick }) => {
     };
 
     // Memoized filtered and sorted data
+    // const sortedFilteredData = useMemo(() => {
+    //     return data.filter(item => {
+    //         return Object.keys(item).some(key =>
+    //             item[key] != null && // Check for null or undefined
+    //             item[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
+    //         );
+    //     }).sort(compareValues(sortField, sortDirection));
+    // }, [data, searchTerm, sortField, sortDirection]);
+
+    // Memoized filtered and sorted data
     const sortedFilteredData = useMemo(() => {
-        return data.filter(item => {
-            return Object.keys(item).some(key =>
-                item[key] != null && // Check for null or undefined
-                item[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
+        let filteredData = data.filter(item => {
+            const searchMatch = Object.keys(item).some(key =>
+                item[key] != null && item[key].toString().toLowerCase().includes(searchTerm.toLowerCase())
             );
-        }).sort(compareValues(sortField, sortDirection));
-    }, [data, searchTerm, sortField, sortDirection]);
+            const filterMatch = filterOptions.length === 0 || filterOptions.includes(item.isVdp ? "VDP" : "Not VDP");
+            return searchMatch && filterMatch;
+        });
+        return filteredData.sort(compareValues(sortField, sortDirection));
+    }, [data, searchTerm, sortField, sortDirection, filterOptions]);
+
+
 
     const handleCheckboxClick = (id, isChecked, event) => {
         event.stopPropagation();  // Prevent the row click event
@@ -62,7 +81,7 @@ const Table = ({ data, handleRowClick }) => {
         <div>
             <div className="flex mb-4 justify-between items-center">
                 <TableSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                {/* <DropdownFilter options={["Active", "Inactive", "Completed"]} applyFilters={() => { }} /> */}
+                <DropdownFilter options={["VDP", "Not VDP"]} applyFilters={applyFilters} />
             </div>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-900 dark:text-gray-400">
